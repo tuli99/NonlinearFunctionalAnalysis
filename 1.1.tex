@@ -1,0 +1,520 @@
+\subsection{连续性与有界性}
+
+先回顾一些基本概念:
+
+\begin{definition}
+    设$X_1, X_2$为Banach空间, $D \subseteq X_1$, 算子$A\colon D \rightarrow X_2$.
+    \begin{itemize}
+        \item 称$A$在$x_0 \in D$处是\textbf{连续的}, 如果对于任意的$\varepsilon > 0$, 存在$\delta > 0$, 使得当$\Vert x - x_0\Vert_{X_1} < \delta$时, 有$\Vert Ax - Ax_0\Vert_{X_2} < \varepsilon$; 或等价地, 对任意的$x_i \rightarrow x_0$, 有$Ax_i \rightarrow Ax_0$. 若$A$在$D$中的每一点都是连续的, 则称$A$在$D$上连续的.
+        \item 称$A$在$D$上是\textbf{有界的}, 如果$A$将$D$中的任一有界集映成$X_2$中的有界集.
+    \end{itemize}
+\end{definition}
+
+对于Banach空间上的线性算子而言, 连续性和有界性是等价的. 然而对于非线性算子, 则没有这种等价性.
+
+\begin{example}
+    考虑定义在$\ell^2$上的泛函:
+    \begin{equation*}
+        f(x) = \sum_{j = 1}^{\infty}jr_j, \qquad \forall x = \{x_j\} \in \ell^2,
+    \end{equation*}
+    其中$r_j = \max\{|x_j| - 1, 0\}$. 若$x^{(i)} = \{x^{(i)}_j\}$在$\ell^2$中收敛到$x = \{x_j\}$, 则对任意的$j$, 有$x_j^{i} \rightarrow x^j$. 注意到在上述和式中只有有限项不为零, 故有$f(x^{i}) \rightarrow f(x)$, 即$f$是连续的. 另一方面, 若取$y^{(i)} = \{y^{(i)}_j\} \in \ell^2$, 其中 
+    \begin{equation*}
+        y^{(i)}_j = 
+        \begin{cases}
+            2 \quad &j = i, \\ 
+            0 \quad &j \neq i,
+        \end{cases}
+    \end{equation*}
+    则对所有的$i$, 有$\Vert y^{(i)}\Vert_{\ell^2} = 2$, 但$f(y^{(i)}) = n \rightarrow \infty\ (n \rightarrow \infty)$. 这表明$f$不是有界的.
+\end{example}
+
+以下考虑算子$\bm{f}\colon$
+\begin{equation*}
+    \boxed{(\bm{f}\varphi)(x) = f(x, \varphi(x))}
+\end{equation*}
+的连续性和有界性. 这里$f = f(x, u)$是定义在$G \times (-\infty, +\infty)$上的函数, $G$为$\mathbf{R}^n$中的可测集, 且$0 < |G| \leq +\infty$. 
+称$f$满足\textbf{Carath\'eodory条件}, 如果 
+\begin{itemize}
+    \item 对a.e. $x \in G$, $u \mapsto f(x, u)$是关于$u$的连续函数.
+    \item 对所有的$u \in (-\infty, +\infty)$, $x \mapsto f(x, u)$是关于$x$的可测函数.
+\end{itemize}
+
+\begin{lemma}\label{lma1.3}
+    设Lebesgue可测集$G$的Lebesgue测度$|G| < +\infty$. 则$f = f(x, u)$满足Carath\'eodory条件, 当且仅当对任意的$\varepsilon > 0$, 存在$G$中的闭集$F$, 使得$|F| > |G| - \varepsilon$, 且$f$在$F \times (-\infty, +\infty)$上连续.
+    \begin{proof}
+        充分性: 由假设可知, 对任意的$i$, 存在闭集$F_i \subseteq G$, 使得$|F_i| > |G| - 1/i$, 且$f$在$F_i \times (-\infty, +\infty)$上连续. 令$F = \bigcup_{i = 1}^{\infty}F_i$, 则有$|G| = |F|$, 且当$x \in F$时, $u \mapsto f(x, u)$是连续的. 这便是Carath\'eodory条件的第一条. 另一方面, 注意到对任意的$u \in (-\infty, +\infty)$和$a \in \mathbf{R}$,  
+        \begin{equation*}
+            \{x \in F_i\colon f(x, u) \geq a\}
+        \end{equation*}
+        是闭集, 从而 
+        \begin{equation*}
+            \{x \in F\colon f(x, u) \geq a\} = \bigcup_{i = 1}^{\infty}\{x \in F_i\colon f(x, u) \geq a\}
+        \end{equation*}
+        是可测集. 由此表明$x \mapsto f(x, u)$是$F$上的可测函数, 从而也是$G$上的可测函数.
+
+        必要性: 对于给定的$\varepsilon > 0$, 只需证明, 存在闭集$F_i \subseteq G$和$\delta_i > 0$, 使得$|F_i| > |G| - \varepsilon/2^i$,
+        且当$x_1, x_2 \in F_i$, $\Vert x_1 - x_2\Vert < \delta_i$, $u_1, u_2 \in [-i, i], |u_1 - u_2| < \delta_i$时, 有 
+        \begin{equation*}
+            |f(x_1, u_1) - f(x_2, u_2)| < \frac{1}{i} \qquad (i = 1, 2, \cdots).
+        \end{equation*}
+        事实上, 若上述结论成立, 令$F = \bigcap_{i = 1}^{\infty}F_i$, 则$F$是闭集, 且有 
+        \begin{equation*}
+            |G \smallsetminus F| \leq \sum_{i = 1}^{\infty}|G \smallsetminus F_i| = \varepsilon.
+        \end{equation*}
+        另一方面, 任取$(x_1, u_1) \in F \times (-\infty, +\infty)$. 对任意的$\eta > 0$, 选取$i_0$, 使得$1/i_0 < \eta$且$|u_1| < n_0 - 1 \leq n_0$. 令$\delta = \min\{\delta_{i_0}, 1\}$, 从而当$\Vert x_1 - x_2\Vert < \delta$且$|u_1 - u_2| < \delta$时, 有$x_2 \in F \subseteq F_{i_0}$, 且 
+        \begin{equation*}
+            |u_2| \leq |u_1 - u_2| + |u_1| \leq 1 + i_0 - 1 = i_0,
+        \end{equation*}
+        故有 
+        \begin{equation*}
+            |f(x_1, u_1) - f(x_2, u_2)| \leq \frac{1}{i_0} < \eta.
+        \end{equation*}
+        由此即说明$f$在$F \times (-\infty, +\infty)$上是连续的.
+
+        下证上述结论. 令 
+        \begin{equation*}
+            G_0 = \{x \in G\colon u \mapsto f(x, u)\ \text{is continuous on}\ (-\infty, +\infty)\}.
+        \end{equation*}
+        由Carath\'eodory条件可知, $|G_0| = |G|$. 再令 
+        \begin{equation*}
+            G_{j, k} = \left\{x \in G_0\colon u_1, u_2 \in [-k, k], |u_1 - u_2| < \frac{1}{j}\ \text{imply}\ |f(x, u_1) - f(x, u_2) \leq \frac{1}{3k}\right\}.
+        \end{equation*}
+        从而 
+        \begin{align*}
+            G_0 \smallsetminus G_{j, k} &= \left\{x \in G_0\colon \exists u_1, u_2 \in [-k, k], s.t. \ |u_1 - u_2| < \frac{1}{j}, |f(x, u_1) - f(x, u_2)| > \frac{1}{3k}\right\} \\
+            &= \left\{x \in G_0\colon \exists u_1, u_2 \in [-k, k] \cap \mathbf{Q}, s.t. \ |u_1 - u_2| < \frac{1}{j}, |f(x, u_1) - f(x, u_2)| > \frac{1}{3k}\right\}.
+        \end{align*}
+        注意到对任意的$u_1, u_2$, 集合 
+        \begin{equation*}
+            \left\{x \in G_0\colon |f(x, u_1) - f(x, u_2)| > \frac{1}{3k}\right\}
+        \end{equation*}
+        是可测的, 因此$G_0 \smallsetminus G_{j, k}$ (作为可数个可测集的并)也是可测的, 从而$G_{j, k}$也是可测的. 令$E_k = \bigcup_{j = 1}^{\infty}G_{j, k}$, 则$E_k = G_0$. 事实上, 若存在$x_0 \in G_0 \smallsetminus E_k$, 则对任意的$j$, 存在$u_1^{(j)}, u_2^{(j)} \in [-k, k]$, 使得$|u_1^{(j)} - u_2^{(j)}| < 1/j$,  
+        \begin{equation*}
+            |f(x_0, u_1^{(j)}) - f(x_0, u_2^{(j)})| > \frac{1}{3k}.
+        \end{equation*}
+        而这与$u \mapsto f(x_0, u)$在$[-k, k]$上的一致连续性矛盾. 综上, 我们有 
+        \begin{equation*}
+            \lim\limits_{j \rightarrow +\infty}|G_{j, k}| = |G_0| \qquad (k = 1, 2, \cdots).
+        \end{equation*}
+        现对给定的$k$, 取$j_0$, 使得 
+        \begin{equation*}
+            |G_{j_0, k}| > |G_0| - \frac{1}{2^i} \cdot \frac{\varepsilon}{3}.
+        \end{equation*}
+        将区间$[-k, k]$进行$s = 2kj_0$等分, 设分点为 
+        \begin{equation*}
+            -k = u^{(0)} < u^{(1)} < \cdots < u^{(s)} = k.
+        \end{equation*}
+        由Luzin定理, 存在闭集$D_i \subseteq G_0$满足 
+        \begin{equation*}
+            |D_i| > |G_0| - \frac{\varepsilon}{3(s + 1)2^i},
+        \end{equation*}
+        且使得$x \mapsto f(x, u^{(l)})$在$D_i$上是连续(从而是一致连续)的, $l = 0, 1, \cdots, s$. 令$D = \bigcap_{l = 1}^sD_l$, 由一致连续性可知, 存在$\delta > 0$, 使得当$x_1, x_2 \in D$且$\Vert x_1 - x_2 \Vert < \delta$时, 有 
+        \begin{equation*}
+            |f(x_1, u^{(l)}) - f(x_2, u^{(l)})| < \frac{1}{3k}, \quad l = 0, 1, \cdots, s.
+        \end{equation*}
+        今取闭集$F_i \subseteq G_{j_0, k} \cap D$使得 
+        \begin{equation*}
+            |F_i| > |G_{j_0, k} \cap D| - \frac{1}{2^i} \cdot \frac{\varepsilon}{3},
+        \end{equation*}
+        再取$\delta_i \in (0, \min\{\delta, 1/j_0\})$. 下证$F_i$和$\delta_i$符合要求. 一方面, 我们有 
+        \begin{equation*}
+            G_0 \smallsetminus (G_{j_0, k} \cap D) = (G_0 \smallsetminus G_{j_0, k}) \cup (G_0 \smallsetminus D) = (G_0 \smallsetminus G_{j_0, k}) \cup \left(\bigcup_{l = 0}^s(G_0 \smallsetminus D_l)\right),
+        \end{equation*}
+        从而 
+        \begin{equation*}
+            |G_0 \smallsetminus (G_{j_0, k} \cap D)| \leq \frac{1}{2^i} \cdot \frac{\varepsilon}{3} + \sum_{l = 0}^s\frac{\varepsilon}{3(s + 1)2^i} = \frac{1}{2^i} \cdot \frac{2\varepsilon}{3}.
+        \end{equation*}
+        故 
+        \begin{equation*}
+            |F_i| > |G_0| - \frac{1}{2^i} \cdot \frac{2\varepsilon}{3} > |G| - \frac{\varepsilon}{2^i}.
+        \end{equation*}
+        另一方面, 设$x_1, x_2 \in F_i, \Vert x_1 - x_2 \Vert \delta_i, u_1, u_2 \in [-i, i], |u_1 - u_2| < \delta_i$. 注意到
+        \begin{equation*}
+            \delta_i < \frac{1}{j_0} = u^{(l + 1)} - u^{(l)} \qquad (l = 0, 1, \cdots, s - 1),
+        \end{equation*}
+        故一定存在某$l_0$, 使得$|u_m - u^{(l_0)}| < 1/j_0, m = 1, 2$. 从而有 
+        \begin{align*}
+            |f(x_1, u_1)& - f(x_2, u_2)| \\
+            &\leq |f(x_1, u_1) - f(x_1, u^{(l_0)})| + |f(x_1, u^{(l_0)}) - f(x_2, u^{(l_0)})| + |f(x_2, u^{(l_0)}) - f(x_2, u_2)| \\
+            &< \frac{1}{3k} + \frac{1}{3k} + \frac{1}{3k} = \frac{1}{k}.
+        \end{align*}
+    \end{proof}
+\end{lemma}
+
+以下恒设$f$满足Carath\'eodory条件.
+
+\begin{lemma}
+    若$\varphi$是$G$上的可测函数, 则$\bm{f}\varphi$也是$G$上的可测函数.
+    \begin{proof}
+        先考虑$|G| < +\infty$的情形. 由引理\ref{lma1.3}可知, 对任意的$i$, 存在闭集$F_i \subseteq G$, 使得$|F_i| > |G| - 1/i$, 且$f$在$F_i \times (-\infty, +\infty)$上连续. 不妨设$F_i \subseteq F_{i + 1}, \forall i$. 再由Luzin定理, 存在闭集$D_i \subseteq F_i$, 使得$|D_i| > |F_i| - 1/i$, 且$\varphi$在$D_i$上连续. 同样不妨设$D_i \subseteq D_{i + 1}, \forall i$. 现令
+        \begin{equation*}
+            D = \bigcup_{i = 1}^{\infty}D_i, \ H = G \smallsetminus D,
+        \end{equation*}
+        显然有$|D| = |G|, |H| = 0$. 对任意的$c \in \mathbf{R}$, 注意到 
+        \begin{equation*}
+            \{x \in D\colon f(x, \varphi(x)) \geq c\} = \bigcup_{i = 1}^{\infty}\{x \in D_i\colon f(x, \varphi(x)) \geq a\},
+        \end{equation*}
+        且对于任意的$i$而言, $\{x \in D_i\colon f(x, \varphi(x)) \geq a\}$是闭集, 从而是可测集, 故$\{x \in D\colon f(x, \varphi(x)) \geq c\}$是可测的, 从而 
+        \begin{equation*}
+            \{x \in G\colon f(x, \varphi(x)) \geq c\}
+        \end{equation*}
+        也是可测的. 由此即表明$f$是$G$上的可测函数.
+
+        最后考虑$|G| = +\infty$的情形. 取$G_i \subseteq G$使得
+        \begin{equation*}
+            G = \bigcup_{i = 1}^{\infty}G_i,
+        \end{equation*}
+        其中$G_j \cap G_k = \varnothing\ (j \neq k), |G_i| < +\infty\ (i = 1, 2, \cdots)$. 由前段分析可知, $f$是$G_i$上的可测函数, 从而$f$也是$G$上的可测函数.
+    \end{proof}
+\end{lemma}
+
+\begin{lemma}\label{lma1.5}
+    设$|G| < +\infty$. 若$\varphi_i$在$G$上依测度收敛到$\varphi$, 则$\bm{f}\varphi_i$在$G$上依测度收敛到$\bm{f}\varphi$.
+    \begin{proof}
+        对任意的$c \in \mathbf{R}_{> 0}$, 令 
+        \begin{equation*}
+            F_i = \{x \in G\colon |f(x, \varphi_i(x)) - f(x, \varphi(x)) \geq c\}.
+        \end{equation*}
+        要证$|F_i| \rightarrow 0$, 或等价地, $|D_i| \rightarrow |G|$, 这里
+        \begin{equation*}
+            D_i = G \smallsetminus F_i = \{x \in G\colon |f(x, \varphi_i(x)) - f(x, \varphi(x))| < c\}.
+        \end{equation*}
+        令 
+        \begin{equation*}
+            G_j = \left\{x \in G\colon |\varphi(x) - u| < \frac{1}{j}\ \text{implies}\ |f(x, \varphi(x)) - f(x, u)| < c, \forall u\right\} \qquad (j = 1, 2, \cdots).
+        \end{equation*}
+        令$H = \bigcup_{j = 1}^{\infty}G_j$, 则有 
+        \begin{equation*}
+            |G_j| \rightarrow |H| = |G|.
+        \end{equation*}
+        事实上, 若$x_0 \in G \smallsetminus H$, 则对任意的$j$, 存在$u_j$, 使得 
+        \begin{equation*}
+            |\varphi(x_0) - u| < \frac{1}{j}, \quad |f(x_0, \varphi(x_0)) - f(x_0, u_j)| \geq c.
+        \end{equation*}
+        由此即表明$u \mapsto f(x_0, u)$在$u = \varphi(x_0)$处不连续. 再利用Carath\'eotory条件, 即得$|G \smallsetminus H| = 0$. 现对任意的$\varepsilon > 0$, 取充分大的$j_0$使得 
+        \begin{equation*}
+            |G_{j_0}| > |G| - \frac{\varepsilon}{2}.
+        \end{equation*}
+        令 
+        \begin{gather*}
+            Q_i = \left\{x \in G\colon |\varphi_i(x) - \varphi(x) \geq \frac{1}{j_0}\right\}, \\ 
+            R_i = G \smallsetminus Q_i = \left\{x \in G\colon |\varphi_i(x) - \varphi(x)| < \frac{1}{j_0}\right\}.
+        \end{gather*}
+        由于$\varphi_i$依测度收敛于$\varphi$, 故$|Q_i| \rightarrow 0$, 即$|R_i| \rightarrow |G|$. 故存在$N \in \mathbf{Z}_{> 0}$, 使得当$i > N$时, 有 
+        \begin{equation*}
+            |R_i| > |G| - \frac{\varepsilon}{2}.
+        \end{equation*}
+        注意到$G_{j_0} \cap R_i \subseteq D_i$, 故 
+        \begin{equation*}
+            G \smallsetminus D_i \subseteq G \smallsetminus (G_{j_0} \cap R_i) = (G \smallsetminus G_{j_0}) \cup (G \smallsetminus R_i).
+        \end{equation*}
+        因此当$i > N$时, 有 
+        \begin{align*}
+            |G| - |D_i| \leq (|G| - |G_{j_0}|) + (|G| - |R_i|) < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.
+        \end{align*}
+    \end{proof}
+\end{lemma}
+
+\begin{proposition}\label{prop1.6}
+    若$\bm{f}$是$G$上的强$(p_1, p_2)$型算子(即$\bm{f}$映$L^{p_1}(G)$入$L^{p_2}(G)$), 其中$p_1, p_2 \geq 1$, 则$\bm{f}$是连续的.
+    \begin{proof}
+        先考虑$|G| < +\infty$, 且$f(x, 0) \equiv 0$的情形. 首先证明$\bm{f}$在原点处连续. 反证法. 若$\bm{f}$在原点处不连续, 则存在$\alpha > 0$以及$\varphi_i \in L^{p_1}(G)\ (i = 1, 2, \cdots)$, 使得$\Vert \varphi_i\Vert_{L^{p_1}(G)} \rightarrow 0$, 但$\Vert \bm{f}\varphi_i\Vert_{L^{p_2}(G)} > \alpha$. 不妨设 
+        \begin{equation}\label{1}
+            \sum_{i = 1}^{\infty}\Vert \varphi_i\Vert_{L^{p_1}(G)} < +\infty.
+        \end{equation}
+        现取正数列$\{\varepsilon_i\}$, $\{\varphi_i\}$的子列$\{\varphi_{j_i}\}$以及可测集列$\{G_i\}\ (G_i \subseteq G)$, 满足如下条件:
+        \begin{enumerate}
+            \item $\varepsilon_{i + 1} \leq \varepsilon_i/2$; \label{prop1.6-1}
+            \item $|G_i| \leq \varepsilon_i$; \label{prop1.6-2}
+            \item $\Vert \bm{f}\varphi_{j_i}\Vert_{L^{p_2}(G_i)}^{p_2} > 2\alpha/3$; \label{prop1.6-3}
+            \item $D \subseteq G, |D| \leq 2\varepsilon_{i + 1}$ $\Longrightarrow$ $\Vert \bm{f}\varphi_{j_i}\Vert_{L^{p_2}(D)}^{p_2} < \alpha/3$. \label{prop1.6-4}
+        \end{enumerate}
+        满足条件的序列总是可以选得到的. 事实上, 先令$\varepsilon_1 = |G|, \varphi_{j_1} = \varphi_1, G_1 = G$. 假设$\varepsilon_i, \varphi_{j_i}$和$G_i$已经选出, 由Lebesgue积分的连续性, 总可以选取$\varepsilon_{i + 1}$满足条件\ref{prop1.6-4}. 此时条件\ref{prop1.6-1}自动满足. 这是因为, 若$\varepsilon_{i + 1} > \varepsilon_i/2$, 则由条件\ref{prop1.6-2}和\ref{prop1.6-3}可知, 
+        \begin{align*}
+            |G_i| \leq \varepsilon_i < 2\varepsilon_{i + 1}, \quad \Vert \bm{f}\varphi_{j_i}\Vert_{L^{p_2}(G)}^{p_2} > \Vert \bm{f}\varphi_{j_i}\Vert_{L^{p_2}(G_i)}^{p_2} > \frac{2\alpha}{3},
+        \end{align*}
+        而这与\ref{prop1.6-4}矛盾. 其次, 注意到$\Vert \varphi_i\Vert_{L^{p_1}(G)} \rightarrow 0$, 故$\varphi_i$在$G$上依测度收敛到$\varphi$. 由引理\ref{lma1.5}可知, $\bm{f}\varphi_i$在$G$上依测度收敛到$\bm{f}\varphi$. 由此我们可以选取$\varphi_{j_{i + 1}}$, 使得$|G_{i + 1}| < \varepsilon_{i + 1}$, 其中 
+        \begin{equation*}
+            G_{i + 1} = \left\{x \in G\colon |\bm{f}\varphi_{j_{i + 1}}(x)| \geq \left(\frac{\alpha}{3|G|}\right)^{1/p_2}\right\}.
+        \end{equation*}
+        令 
+        \begin{equation*}
+            F_{i + 1} = G \smallsetminus G_{i + 1} = \left\{x \in G\colon |\bm{f}\varphi_{j_{i + 1}}(x)| < \left(\frac{\alpha}{3|G|}\right)^{1/p_2}\right\},
+        \end{equation*}
+        则有
+        \begin{align*}
+            \Vert \bm{f}\varphi_{j_{i + 1}}\Vert_{L^{p_2}(G_{i + 1})} = \Vert \bm{f}\varphi_{j_{i + 1}}\Vert_{L^{p_2}(G)} - \Vert \bm{f}\varphi_{j_{i + 1}}\Vert_{L^{p_2}(F_{i + 1})} &> \alpha - \frac{\alpha}{3|G|} \cdot |F_{i + 1}| \\ 
+            &\geq \alpha - \frac{\alpha}{3} = \frac{2\alpha}{3}.
+        \end{align*}
+        这表明$G_i$和$\varphi_{j_{i + 1}}$分别满足条件\ref{prop1.6-2}和条件\ref{prop1.6-3}, 故我们可以采取递归的方式选出序列.
+
+        现令 
+        \begin{equation*}
+            D_i = G_i \smallsetminus \left(\bigcup_{j = i + 1}^{\infty}G_j\right) \quad (i = 1, 2, \cdots).
+        \end{equation*}
+        显然有$D_k \cap D_l = \varnothing\ (k \neq l)$. 再根据条件\ref{prop1.6-2}和\ref{prop1.6-1}, 有 
+        \begin{equation}\label{2}
+            |G_i \smallsetminus D_i| \leq \left|\bigcup_{j = i + 1}^{\infty}G_j\right| \leq \sum_{j = i + 1}^{\infty}\varepsilon_j \leq 2\varepsilon_{i + 1}.
+        \end{equation}
+        考虑定义在$G$上的函数 
+        \begin{equation*}
+            \psi(x) = 
+            \begin{cases}
+                \varphi_{j_i}(x) \quad &x \in \bigcup_{i = 1}^{\infty}D_i, \\ 
+                0 \quad &{\rm others}.
+            \end{cases}
+        \end{equation*}
+        一方面, 由\eqref{1}可知, 
+        \begin{equation*}
+            \Vert \psi\Vert_{L^{p_1}(G)}^{p_1} = \sum_{i = 1}^{\infty}\Vert \psi_i\Vert_{L^{p_1}(D_i)}^{p_1} = \sum_{i = 1}^{\infty}\Vert \psi_{j_i}\Vert_{L^{p_1}(G)}^{p_1} < +\infty,
+        \end{equation*}
+        即$\psi \in L^{p_1}(G)$. 由题设条件可知, $\bm{f}\psi \in L^{p_2}(G)$. 另一方面, 由条件\ref{prop1.6-3}, \ref{prop1.6-4}和\eqref{2}可知, 对所有的$i$, 有
+        \begin{align*}
+            \Vert \bm{f}\psi\Vert_{L^{p_2}(D_i)}^{p_2} = \Vert \bm{f}\psi_{j_i}\Vert_{L^{p_2}(D_i)}^{p_2} &= \Vert \bm{f}\psi_{j_i}\Vert_{L^{p_2}(G_i)}^{p_2} - \Vert \bm{f}\psi_{j_i}\Vert_{L^{p_2}(G_i \smallsetminus D_i)}^{p_2} \\
+            &> \frac{2\alpha}{3} - \frac{\alpha}{3} = \frac{\alpha}{3}. 
+        \end{align*}
+        从而 
+        \begin{equation*}
+            \Vert \bm{f}\psi_{j_i}\Vert_{L^{p_2}(G)}^{p_2} = \sum_{i = 1}^{\infty}\Vert \bm{f}\psi_{j_i}\Vert_{L^{p_2}(D_i)}^{p_2} = +\infty,
+        \end{equation*}
+        矛盾. 综上, 我们便在假定$f(x, 0) \equiv 0$的前提下证明了$\bm{f}$在原点处的连续性.
+
+        对于$\bm{f}$在其它点$\varphi_0 \in L^{p_1}(G)$处的连续性, 定义 
+        \begin{equation*}
+            f_1(x, u) = f(x, \varphi_0(x) + u) - f(x, \varphi_0(x)) \quad ((x, u) \in G \times (-\infty, +\infty)).
+        \end{equation*}
+        容易验证, $f_1$同样满足Carath\'eodory条件, $f_1(x, 0) \equiv 0$, 且对应的算子$\bm{f_1}$同样是强$(p_1, p_2)$型的. 利用上一段中证明的结果可知, $\bm{f_1}$在原点处是连续的, 即$\bm{f}$在$\varphi_0$处是连续的.
+
+        最后考虑$|G| = +\infty$的情形. 与$|G| < +\infty$的情形类似, 只需证明$\bm{f}$在原点处的连续性. 仍用反证法. 若$\bm{f}$在原点处不成立, 则存在$\{\varphi_i\} \in L^{p_1}(G)$, 使得$\Vert \varphi_i\Vert_{L^{p_1}(G)} \rightarrow 0$, 但$\Vert \bm{f}\varphi_i\Vert_{L^{p_1}(G)} \rightarrow +\infty$. 不妨设\eqref{1}式仍成立. 以下按归纳法作出$\{\varphi_i\}$的子列$\{\varphi_{j_i}\}$, 以及可测序列$D_i \subseteq G\ (i = 1, 2, \cdots)$, 满足如下条件: 
+        \begin{enumerate}[start=5]
+            \item $|D_i| < +\infty, D_j \cap D_k = \varnothing\ (j \neq k)$; \label{prop1.6-5}
+            \item $\Vert \bm{f}\varphi_{j_i}\Vert_{L^{p_1}(D_i)}^{p_1} > \alpha/2\ (i = 1, 2, \cdots)$. \label{prop1.6-6}
+        \end{enumerate}
+        具体地, 先令$\varphi_{j_1} = \varphi_1$, 并选取$D_1 \subseteq G$, 使得$|D_1| < +\infty$, 且$\Vert \bm{f}\varphi_1\Vert_{L^{p_1}(G_i)}^{p_1} > \alpha/2$. 现设满足条件的$\varphi_{j_i}$和$D_i$已经选出. 由\ref{prop1.6-5}可知, $|\bigcup_{j = 1}^iD_j| < +\infty$. 由前述证明的结果可知, 存在$m_{i + 1} > m_i$, 使得
+        \begin{equation*}
+            \Vert \bm{f}\varphi_{j_{i + 1}}\Vert^{p_2}_{L^{p_2}(\bigcup_{j = 1}^iD_j)} < \frac{\alpha}{2}.
+        \end{equation*}
+        取$G_{i + 1} \subseteq G\colon |G_{i + 1}| < +\infty$, 使得 
+        \begin{equation*}
+            \Vert \bm{f}\varphi_{j_{i + 1}}\Vert_{L^{p_2}(G_{i + 1}}^{p_2} > \alpha.
+        \end{equation*}
+        令$D_{i + 1} = G_{i + 1} \smallsetminus \bigcup_{j = 1}^iD_j$. 
+        显然$D_{i + 1}$满足条件\ref{prop1.6-5}. 另一方面, 注意到 
+        \begin{equation*}
+            G_{i + 1} \subseteq D_{i + 1} \cup \left(\bigcup_{j = 1}^iD_j\right),
+        \end{equation*}
+        故有 
+        \begin{align*}
+            \Vert \bm{f}\varphi_{j_{i + 1}}\Vert_{L^{p_2}(D_{i + 1)}}^{p_2} \geq \Vert \bm{f}\varphi_{j_{i + 1}}\Vert_{L^{p_2}(G_{i + 1)}}^{p_2} - \Vert \bm{f}\varphi_{j_{i + 1}}\Vert_{L^{p_2}(\bigcup_{j = 1}^kD_j)}^{p_2} > \alpha - \frac{\alpha}{2} = \frac{\alpha}{2}.
+        \end{align*}
+        这表明$D_{i + 1}$和$\varphi_{j_{i + 1}}$满足条件\eqref{prop1.6-6}.
+        最后, 考虑定义在$G$上的可测函数$\psi$:
+        \begin{equation*}
+            \psi(x) = 
+            \begin{cases}
+                \varphi_{j_i}(x) \quad &x \in \bigcup_{i = 1}^{\infty}D_i, \\ 
+                0 \quad &\text{others}.
+            \end{cases} 
+        \end{equation*}
+        一方面, 由\eqref{1}式可知$\psi \in L^{p_1}(G)$, 从而$\bm{f}\psi \in L^{p_2}(G)$; 另一方面, 条件\ref{prop1.6-6}表明 
+        \begin{equation*}
+            \Vert \bm{f}\psi\Vert_{L^{p_2}(G)}^{p_2} = \sum_{i = 1}^{\infty}\Vert \bm{f}\psi\Vert_{L^{p_2}(D_i)}^{p_2} = +\infty.
+        \end{equation*}
+        这与$\bm{f}\psi \in L^{p_2}(G)$矛盾.
+    \end{proof}
+\end{proposition}
+
+\begin{proposition}\label{prop1.7}
+    若$\bm{f}$是$G$上的强$(p_1, p_2)$型算子, 其中$p_1, p_2 \geq 1$, 则$\bm{f}$是有界的.
+    \begin{proof}
+        先设$f(x, 0) \equiv 0$. 由命题\ref{prop1.6}可知, 存在$r > 0$, 当$\Vert \varphi\Vert_{L^{p_1}(G)} \leq r$时, 有$\Vert \bm{f}\varphi\Vert_{L^{p_2}(G)} \leq 1$. 现对任意的$\varphi \in L^{p_1}(G)$, 取非负整数$m$, 使得 
+        \begin{equation*}
+            mr \leq \Vert \varphi\Vert_{L^{p_1}(G)} < (m + 1)r.
+        \end{equation*}
+        根据Lebesgue积分的绝对连续性, 可将$G$分成$m + 1$个互不相交的可测集$\{G_i\}$, 使得 
+        \begin{equation}\label{3}
+            \Vert \varphi\Vert_{L^{p_1}(G_i)} \leq r \quad (i = 1, 2, \cdots, m + 1).
+        \end{equation}
+        令 
+        \begin{equation*}
+            \varphi_i(x) = 
+            \begin{cases}
+                \varphi(x) \quad &x \in G_i, \\ 
+                0 \quad &\text{others}.
+            \end{cases} \qquad i = 1, 2, \cdots, m + 1.
+        \end{equation*}
+        结合\eqref{3}式, 可知$\Vert \varphi_i\Vert_{L^{p_1}(G)} \leq r$, 从而有 
+        \begin{equation*}
+            \Vert \bm{f}\varphi\Vert_{L^{p_2}(G_i)} = \Vert \bm{f}\varphi_i\Vert_{L^{p_1}(G)} \leq 1 \quad (i = 1, 2, \cdots, m + 1).
+        \end{equation*}
+        故 
+        \begin{equation}\label{4}
+            \Vert \bm{f}\varphi\Vert_{L^{p_2}(G)} = \sum_{i = 1}^{m + 1}\Vert \bm{f}\varphi_i\Vert_{L^{p_2}(G_i)} \leq m + 1.
+        \end{equation}
+        结合\eqref{3}和\eqref{4}, 得 
+        \begin{equation*}
+            \Vert \bm{f}\varphi\Vert_{L^{p_2}(G)} \leq m + 1 \leq \frac{\Vert \varphi\Vert_{L^{p_1}}}{r} + 1.
+        \end{equation*}
+        由此即表明$\bm{f}$的有界性.
+
+        最后考虑一般的情况. 对任意的$\varphi_0 \in L^{p_1}(G)$, 令 
+        \begin{equation*}
+            f_1(x, u) = f(x, \varphi_0(x) + u) - f(x, \varphi_0(x)) \quad ((x, u) \in G \times (-\infty, +\infty)).
+        \end{equation*}
+        显然有$f_1(x, 0) \equiv 0$. 设$S$为$L^{p_1}(G)$中的有界集, 令 
+        \begin{equation*}
+            S_1 = S - \varphi_0 = \{\varphi - \varphi_0\colon \varphi \in S\}.
+        \end{equation*}
+        显然$S_1$也是$L^{p_1}(G)$中的有界集. 将上段证明的结果应用到$\bm{f}_1$上, 知存在$M > 0$, 使得对任意的$\varphi_1 \in S_1$, 有$\Vert \bm{f_1}\varphi_1\Vert_{L^{p_2}(G)} \leq M$. 现取$\varphi \in S$, 令$\varphi_1 = \varphi - \varphi_0 \in S_1$. 注意到$\bm{f_1}\varphi_1 = \bm{f}\varphi - \bm{f}\varphi_0$, 故 
+        \begin{align*}
+            \Vert \bm{f}\varphi\Vert_{L^{p_2}} \leq \Vert \bm{f_1}\varphi_1\Vert_{L^{p_2}(G)} + \Vert \bm{f}\varphi_0\Vert_{L^{p_2}(G)} \leq M_1 + \Vert \bm{f}\varphi_0\Vert_{L^{p_2}(G)} < +\infty. 
+        \end{align*}
+        由此表明$\bm{f}(S)$是有界的.
+    \end{proof}
+\end{proposition}
+
+下述命题给出了算子$\bm{f}$为强$(p_1, p_2)$型的一个等价刻画.
+
+\begin{proposition}
+    $\bm{f}$是强$(p_1, p_2)\ (p_1, p_2 \geq 1)$型的, 当且仅当存在$b > 0$以及$0 \leq a \in L^{p_2}(G)$, 使得下述的不等式成立:
+    \begin{equation}\label{5}
+        |f(x, u)| \leq a(x) + b|u|^{p_1/p_2} \qquad ((x, u) \in G \times (-\infty, +\infty)).
+    \end{equation}
+    \begin{proof}
+        充分性. 对任意的$\varphi \in L^{p_1}(G)$, 由\eqref{5}式, 直接放缩得 
+        \begin{equation*}
+            |f(x, \varphi(x))|^{p_2} \leq \left(a(x) + b|\varphi(x)|^{p_1/p_2}\right)^{p_2} \leq 2^{p_2 - 1}(a(x)^{p_2} + b^{p_2}|\varphi(x)|^{p_1}),
+        \end{equation*}
+        故 
+        \begin{equation*}
+            \int_G|f(x, \varphi(x))|^{p_2} \,{\rm d}x \leq 2^{p_2 - 1}\left(\int_G|a(x)|^{p_2} \,{\rm d}x + b^{p_2}\int_G|\varphi(x)|^{p_1} \,{\rm d}x\right) < +\infty,
+        \end{equation*}
+        即$\bm{f}\varphi \in L^{p_2}(G)$.
+
+        必要性. 先设$f(x, 0) \equiv 0$. 由命题\ref{prop1.7}可知, 存在$b > 0$, 使得$\bm{f}(B_1(0)) \subseteq B_b(0)$. 定义 
+        \begin{equation*}
+            g(x, u) = 
+            \begin{cases}
+                |f(x, u)| - b|u|^{p_1/p_2} \quad &|f(x, u)| \geq b|u|^{p_1/p_2}, \\ 
+                0 \quad &|f(x, u)| < b|u|^{p_1/p_2}.            \end{cases}
+        \end{equation*}
+        对任意的$\varphi \in L^{p_1}(G)$, 令 
+        \begin{equation*}
+            F = \{x \in G\colon g(x, \varphi(x)) > 0\},
+        \end{equation*}
+        并设
+        \begin{equation*}
+            \Vert \varphi\Vert_{L^{p_1}(F)}^{p_1} = m + \alpha,
+        \end{equation*}
+        其中$m \in \mathbf{Z}_{\geq 0}$, $\alpha \in [0, 1)$. 由Lebesgue积分的绝对连续性可知, 存在$F$的一个分划$\{G_i\}_{i = 1}^{m + 1}$, 使得 
+        \begin{equation*}
+            \Vert \varphi\Vert_{L^{p_1}(G_i)}^{p_1} \leq 1 \quad (i = 1, 2, \cdots, m + 1).
+        \end{equation*}
+        故
+        \begin{equation*}
+            \Vert \bm{f}\varphi\Vert_{L^{p_2}(F)}^{p_2} = \sum_{i = 1}^{m + 1}\Vert \bm{f}\varphi\Vert_{L^{p_2}(G_i)}^{p_2} \leq (m + 1)b^{p_2},
+        \end{equation*}
+        从而有 
+        \begin{equation}\label{6}
+            \begin{aligned}
+            \int_G|g(x, \varphi(x))|^{p_2} \,{\rm d}x = \int_F|f(x, \varphi(x)) - b|\varphi(x)|^{p_1/p_2}|^{p_2} \,{\rm d}x &\leq \Vert \bm{f}\varphi\Vert_{L^{p_2}(F)}^{p_2} - b^{p_2}\Vert \varphi\Vert_{L^{p_2}(F)}^{p_2} \\ 
+            &\leq (m + 1)b^{p_2} - (m + \alpha)b^{p_2} \\
+            &\leq b^{p_2},
+            \end{aligned}
+        \end{equation}
+        这里我们用到了不等式 
+        \begin{equation*}
+            (u - v)^r \leq u^r - v^r, \qquad \forall u \geq v \geq 0, r \geq 1.
+        \end{equation*}
+        另一方面, 注意到$g$显然也满足Carath\'eorory条件, 故存在$D \subseteq G\colon |G \smallsetminus D| = 0$, 使得对所有的$x \in D$, $u \mapsto g(x, u)$是连续的. 现取$D_i \subseteq D\ (i = 1, 2, \cdots)$, 满足条件 
+        \begin{itemize}
+            \item $|D_i| < +\infty, \forall i$, 
+            \item $D = \bigcup_{i = 1}^{\infty}D_i, D_1 \subseteq D_2 \subseteq D_3 \subseteq \cdots$.
+        \end{itemize}
+        令 
+        \begin{equation*}
+            \varphi_i(x) = 
+            \begin{cases}
+                \min\{u^*\colon u^* \in [-i, i], g(x, u^*) = \max_{i \leq u \leq i}g(x, u)\} \quad &x \in D_i, \\ 
+                0 \quad &\text{others}.
+            \end{cases}
+        \end{equation*}
+        若$\varphi_i$是$G$上的可测函数, 首先, 有 
+        \begin{equation*}
+            \int_G|\varphi_i(x)|^{p_1}\,{\rm d}x = \int_{D_i}|\varphi_i(x)|^{p_1}\,{\rm d}x \leq i^{p_1}|D_i| < +\infty,
+        \end{equation*}
+        即$\varphi_i \in L^{p_1}(G)$, 从而由\eqref{6}可知, 
+        \begin{equation*}
+            \int_G|g(x, \varphi_i(x)|^{p_2} \,{\rm d}x \leq b^{p_2} \quad (i = 1, 2, \cdots).
+        \end{equation*}
+        今令 
+        \begin{equation*}
+            a(x) = \sup_{-\infty < u < +\infty} g(x, u).
+        \end{equation*}
+        注意到对任意的$x \in D_i$, 有 
+        \begin{equation*}
+            g(x, \varphi_i(x)) = \max_{-i \leq x \leq i}g(x, u),
+        \end{equation*}
+        故 
+        \begin{equation*}
+            a(x) = \lim\limits_{i \rightarrow \infty}g(x, \varphi_i(x)).
+        \end{equation*}
+        由此表明$a$是$G$上的非负可测函数. 利用Fatou引理, 得 
+        \begin{equation*}
+            \int_G|a(x)|^{p_2} \,{\rm d}x \leq \varliminf\limits_{i \rightarrow \infty}\int_G|g(x, \varphi_i(x))|^{p_2} \,{\rm d}x \leq b^{p_2},
+        \end{equation*}
+        从而$a \in L^{p_2}(G)$. 最后, 注意到 
+        \begin{equation*}
+            a(x) = \sup_{-\infty < u < +\infty} g(x, u) \geq \sup_{-\infty < u < +\infty}(|f(x, u) - b|u|^{p_1/p_2}),
+        \end{equation*}
+        从而有 
+        \begin{equation*}
+            |f(x, u)| \leq a(x) + b|u|^{p_1/p_2} \qquad ((x, u) \in G \times (-\infty, +\infty)).
+        \end{equation*}
+
+        以下验证$\varphi_i$是$G$上的可测函数. 显然, 只需说明$\varphi_i$是$D_i$上的可测函数. 由引理\ref{lma1.3}可知, 对任意的$j$, 存在有界闭集$F_{i, j} \subseteq D_i\colon |F_{i, j}| > |D_i| - 1/i$, 使得$g$在$F_{i, j} \times (-\infty, +\infty)$上连续. 不妨设$F_{i, j} \subseteq F_{i, j + 1}\ (j = 1, 2, \cdots)$.
+        令$G_i = \bigcup_{j = 1}^{\infty}F_{i, j}$, 则$|D_i \smallsetminus G_i| = 0$. 从而只需证明$\varphi_i$是$G_i$上的可测函数. 现对任意的$a \in \mathbf{R}$, 考虑集合 
+        \begin{equation*}
+            H_{i, j} = \{x \in F_{i, j}\colon \varphi_i(x) > a\}.
+        \end{equation*}
+        取$x_0 \in H_{i, j}$, 令$\eta = \varphi_i(x_0) - a > 0$. 再取$\delta > 0$使得$\delta < \min\{\eta, \varphi_i(x_0) + k\}$. 注意到对任意的$u \in [-i, \varphi_i(x_0))$, 有 
+        \begin{equation*}
+            g(x_0, u) < g(x_0, \varphi_i(x_0)),
+        \end{equation*}
+        故
+        \begin{equation*}
+            2\sigma = g(x_0, \varphi_i(x_0)) - \max_{-i \leq u \leq \varphi_i(x_0) - \delta}g(x_0, u) > 0.
+        \end{equation*}
+        另一方面, 利用$g$在$F_{i, j} \times [-i, i]$上的一致连续性可知, 存在$\rho_{x_0} > 0$, 当$x \in B_{\rho_{x_0}}(x_0) \cap F_{i, j}$时, 有 
+        \begin{equation*}
+            |g(x, u) - g(x_0, u)| < \sigma, \quad \forall u \in [-i, i]. 
+        \end{equation*}
+        故 
+        \begin{equation}\label{7}
+            g(x, u) < g(x, \varphi_i(x_0)), \qquad \forall x \in B_{\rho_{x_0}}(x_0) \cap F_{i, j}, u \in [-i, \varphi_i(x_0) - \delta],
+        \end{equation}
+        利用\eqref{7}和反证法, 容易证明, 对任意的$x \in B_{\rho_{x_0}}(x_0) \cap F_{i, j}$, 有$\varphi_i(x) > \varphi_i(x_0) - \delta$, 从而
+        \begin{equation*}
+            \varphi_i(x) > \varphi_i(x_0) - \delta > \varphi_i(x_0) - \eta = a, \qquad \forall x \in B_{\rho_{x_0}}(x_0) \cap F_{i, j},
+        \end{equation*}
+        由此表明$B_{\rho_{x_0}}(x_0) \cap F_{i, j} \subseteq H_{i, j}$. 综上, 我们有
+        \begin{equation*}
+            H_{i, j} = \left(\bigcup_{x \in H_{i, j}}B_{\rho_x}(x)\right) \cap F_{i, j}.
+        \end{equation*}
+        上式足以说明$H_{i, j}$是可测集, 故$G_i$也是可测集, 从而$\varphi_i$是$G_i$上的可测函数.
+
+        最后考虑一般的情形. 令 
+        \begin{equation*}
+            f_1(x, u) = f(x, u) - f(x, 0),
+        \end{equation*}
+        则$f_1(x, 0) \equiv 0$. 将上述证明的结果用于$\bm{f_1}$, 可知存在$0 \leq a_1 \in L^{p_2}(G)$和$b > 0$, 使得 
+        \begin{equation*}
+            |f_1(x, u)| \leq a_1(x) + b|u|^{p_1/p_2}, \quad ((x, u) \in G \times (-\infty, +\infty)),
+        \end{equation*}
+        从而有 
+        \begin{equation*}
+            |f(x, u)| \leq a(x) + b|u|^{p_1/p_2}, \quad ((x, u) \in G \times (-\infty, +\infty)),
+        \end{equation*}
+        这里$a(x) = a_1(x) + |f(x, 0)| \geq 0$. 注意到$x \mapsto f(x, 0)$位于$L^{p_2}(G)$内, 故$a \in L^{p_2}(G)$.
+    \end{proof}
+\end{proposition}
